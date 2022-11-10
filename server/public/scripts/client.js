@@ -19,7 +19,7 @@ function setupClickListeners() {
     // using a test object
     let koalaToSend = {
       name: $( '#nameIn' ).val(),
-      age: $( '#ageIn' ).val(),
+      age: Number($( '#ageIn' ).val()),
       gender: $( '#genderIn' ).val(),
       readyForTransfer: $( '#readyForTransferIn' ).val(),
       notes: $( '#notesIn' ).val()
