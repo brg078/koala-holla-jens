@@ -40,7 +40,7 @@ function getKoalas(){
   .then(function (response) {
     console.log('AJAX GET successful');
     console.log(response.rows);
-    // renderTable(response);
+    renderTable(response.rows);
   })
   .catch(function (error) {
     console.log('error', error);
@@ -126,19 +126,19 @@ function deleteKoala (){
 function renderTable (koalas) {
   $('#viewKoalas').empty();
 
-  for (koala of koalas) {
+  for (let koala of koalas) {
     $('#viewKoalas').append(`
       <tr>
         <td>${koala.name}</td>
-        <td>${koala.gender}</td>
         <td>${koala.age}</td>
+        <td>${koala.gender}</td>
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>
-          <button type="button" class=".isReadyButton" data-id="${koala.id}>Mark Ready For Transport</button>
+          <button type="button" class=".isReadyButton" data-id="${koala.id}">Mark Ready For Transport</button>
         </td>
         <td>
-          <button type="button" class=".deleteButton" data-id="${koala.id}>Delete</button>
+          <button type="button" class=".deleteButton" data-id="${koala.id}">Delete</button>
         </td>
       </tr>
     `);
