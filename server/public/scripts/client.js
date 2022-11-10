@@ -54,7 +54,7 @@ function saveKoala( newKoala ){
 } // end saveKoala
 
 function markAsReady () {
-  console.log('Marking Koala as ready for Transfer');
+  console.log('Marking Koala as ready/not ready for Transfer');
   const id = $(this).data('id');
   const status = $(this).data('status');
 
@@ -89,11 +89,6 @@ function deleteKoala (){
       alert(`Oh no! We couldn't delete this koala!, error: ${error}`);
   });
 } // end deleteKoala
-
-// stretch goal- toggle
-// $("#isReadyBtn").click(function(){
-//   $("p").toggle();
-// });
 
 // stretch goal- sweetAlert
 // Swal.fire({
