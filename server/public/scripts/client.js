@@ -50,8 +50,19 @@ function getKoalas(){
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
-  // ajax call to server to get koalas
-} // end saveKoala
+
+    $.ajax({
+      type: 'POST',
+      url: '/koalas',
+      data: newKoala
+      }).then(function(response) {
+        console.log('Response from server.', response);
+        getKoalas();
+      }).catch(function(error) {
+        console.log('Error in POST', error)
+        alert('Unable to add book at this time. Please try again later.');
+      });
+}  // end saveKoala
 
 function markAsReady () {
   console.log('Marking Koala as ready for Transfer');
@@ -73,6 +84,7 @@ function markAsReady () {
   })
 
 } // end markAsReady
+
 
 function deleteKoala (){
   const koalaId = $(this).data('id');
