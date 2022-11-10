@@ -18,15 +18,18 @@ function setupClickListeners() {
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: 'testName',
-      age: 20,
-      gender: 'M',
-      readyForTransfer: true,
-      notes: 'testName'
+      name: $( '#nameIn' ).val(),
+      age: $( '#ageIn' ).val(),
+      gender: $( '#genderIn' ).val(),
+      readyForTransfer: $( '#readyForTransferIn' ).val(),
+      notes: $( '#notesIn' ).val()
     };
     // call saveKoala with the new object
     saveKoala( koalaToSend );
   }); 
+
+  //click listener for filter field
+  $('#inputFilter').on('keyup', getFilteredKoala);
 }
 
 function getKoalas(){
@@ -48,8 +51,16 @@ function getKoalas(){
 
 } // end getKoalas
 
+
+
+
+
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
+  
+  if (!checkInputs(newKoala)) { // if this function returns false,
+    return false; // fail input.
+  }
 
     $.ajax({
       type: 'POST',
@@ -63,6 +74,25 @@ function saveKoala( newKoala ){
         alert('Unable to add koala at this time. Please try again later.');
       });
 }  // end saveKoala
+
+function checkInputs(newKoala) {
+  let inputs = Object.values(newKoala); // array of all input values
+
+  // if any input is empty:
+  if (inputs.some((e) => e == '')) {
+    alert('All inputs are required.');
+    return false; // fail the vibe check
+  }
+  
+  // if age is negative,
+  // or DOM is manipulated to send something other than a number:
+  else if (typeof newKoala.age != 'number' || newKoala.age < 0) { 
+    alert('Age must be a positive number.');
+    return false; // and fail the vibe check.
+  }
+  
+  else { return true } // passed the vibe check 😎
+}
 
 function markAsReady () {
   console.log('Marking Koala as ready/not ready for Transfer');
@@ -119,6 +149,28 @@ function deleteKoala (){
 //     Swal.fire('Changes are not saved', '', 'info')
 //   }
 // })
+
+
+// below function does get API request on keyup from input filter field
+function getFilteredKoala() {
+  const searchValue = $('#inputFilter').val();
+
+  // if blank input, refresh DOM and skip this function
+  if (searchValue == '') {
+    getKoalas();
+    return false;
+  };
+
+  $.ajax({
+    type: 'GET',
+    url: '/koalas/' + searchValue
+  }).then(function (response) {
+    console.log('get /filter/:search response', response);
+    renderTable(response);
+  }).catch(function (error) {
+    alert('error getting filtered data', error);
+  });
+};
 
 function renderTable (koalas) {
   $('#viewKoalas').empty();
