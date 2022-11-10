@@ -19,10 +19,10 @@ function setupClickListeners() {
     // using a test object
     let koalaToSend = {
       name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      age: 20,
+      gender: 'M',
+      readyForTransfer: true,
+      notes: 'testName'
     };
     // call saveKoala with the new object
     saveKoala( koalaToSend );
@@ -40,7 +40,7 @@ function getKoalas(){
   .then(function (response) {
     console.log('AJAX GET successful');
     console.log(response.rows);
-    // renderTable(response);
+    renderTable(response.rows);
   })
   .catch(function (error) {
     console.log('error', error);
@@ -60,7 +60,7 @@ function saveKoala( newKoala ){
         getKoalas();
       }).catch(function(error) {
         console.log('Error in POST', error)
-        alert('Unable to add book at this time. Please try again later.');
+        alert('Unable to add koala at this time. Please try again later.');
       });
 }  // end saveKoala
 
@@ -126,19 +126,19 @@ function deleteKoala (){
 function renderTable (koalas) {
   $('#viewKoalas').empty();
 
-  for (koala of koalas) {
+  for (let koala of koalas) {
     $('#viewKoalas').append(`
       <tr>
         <td>${koala.name}</td>
-        <td>${koala.gender}</td>
         <td>${koala.age}</td>
+        <td>${koala.gender}</td>
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>
-          <button type="button" class=".isReadyButton" data-id="${koala.id}>Mark Ready For Transport</button>
+          <button type="button" class=".isReadyButton" data-id="${koala.id}">Mark Ready For Transport</button>
         </td>
         <td>
-          <button type="button" class=".deleteButton" data-id="${koala.id}>Delete</button>
+          <button type="button" class=".deleteButton" data-id="${koala.id}">Delete</button>
         </td>
       </tr>
     `);
