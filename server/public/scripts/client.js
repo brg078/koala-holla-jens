@@ -1,5 +1,4 @@
 console.log( 'js' );
-const Swal = require('sweetalert2')
 
 $( document ).ready( function(){
   console.log( 'JQ' );
