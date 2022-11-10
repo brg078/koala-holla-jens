@@ -85,12 +85,13 @@ function renderTable (koalas) {
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>
-          <button type="button" class="transportBtn" data-id="${koala.id}>Mark Ready For Transport</button>
+          <button type="button" class=".isReadyButton" data-id="${koala.id}>Mark Ready For Transport</button>
         </td>
         <td>
-          <button type="button" class="deleteBtn" data-id="${koala.id}>Delete</button>
+          <button type="button" class=".deleteButton" data-id="${koala.id}>Delete</button>
         </td>
       </tr>
-    `)
-  }
-}
+    `);
+  };
+};
+
