@@ -52,8 +52,7 @@ function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
   
   if (!checkInputs(newKoala)) { // if this function returns false,
-    alert('All inputs are required.'); // alert user
-    return false; // and fail input.
+    return false; // fail input.
   }
 
     $.ajax({
@@ -71,9 +70,21 @@ function saveKoala( newKoala ){
 
 function checkInputs(newKoala) {
   let inputs = Object.values(newKoala); // array of all input values
-  if (inputs.some((e) => e == '')) { // if any value is empty,
+
+  // if any input is empty:
+  if (inputs.some((e) => e == '')) {
+    alert('All inputs are required.');
     return false; // fail the vibe check
-  } else { return true }
+  }
+  
+  // if age is negative,
+  // or DOM is manipulated to send something other than a number:
+  else if (typeof newKoala.age != 'number' || newKoala.age < 0) { 
+    alert('Age must be a positive number.');
+    return false; // and fail the vibe check.
+  }
+  
+  else { return true } // passed the vibe check 😎
 }
 
 function markAsReady () {
