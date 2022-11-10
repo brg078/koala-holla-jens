@@ -1,0 +1,27 @@
+header {
+    display: flex;
+    background-color: rgba(20, 195, 244, 0.639);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.icon {
+    color: rgb(0, 128, 255);
+}
+
+/* section id = 'addKoala' */
+#addKoala {
+    background-color: ivory;
+
+}
+
+#addButton {
+    color: blue;
+}
+
+#isReadyButton {
+    color: green;
+}
+
+#deleteButton {
+    color: purple;
+}

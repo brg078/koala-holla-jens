@@ -3,7 +3,7 @@ console.log( 'js' );
 $( document ).ready( function(){
   console.log( 'JQ' );
   // Establish Click Listeners
-  setupClickListeners()
+  setupClickListeners();
   // load existing koalas on page load
   getKoalas();
 
@@ -36,5 +36,4 @@ function getKoalas(){
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
- 
 }
