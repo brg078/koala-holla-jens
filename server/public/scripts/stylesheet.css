@@ -6,36 +6,37 @@ header {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#icon {
-    
+h2 {
+    display: block;
+    text-align: center !important;
 }
 
 .icon {
+    flex-basis: 100%,
     height: 150px;
     width: 150px;
-    opacity: 1;
 }
 
 /* section id = 'addKoala' */
 #addKoala {
     background-color: ivory;
-
 }
 
 #addButton {
     color: blue;
 }
 
-.table th {
-    width: 20%;
+#koalaDataTable th {
+    width: auto;
     border: 2px solid black;
     padding: 20px;
-    text-align: left;
-    background-color: rgb(168, 171, 169);
+    text-align: center;
+    background-color: rgb(8, 203, 173);
 }
 
-#tableData tr {
-    border: 5px solid black;
+#koalaDataTable tr {
+    width: auto;
+    border: 5px solid rgb(34, 77, 163);
     padding: 20px;
     text-align: left;
 }
