@@ -76,4 +76,17 @@ koalaRouter.delete('/remove/:id', (req, res) => {
     });
 });
 
+
+// FILTER by Name or Notes
+koalaRouter.get('/:filter', (req, res) => {
+    let search = req.params.filter;
+    let queryText = `SELECT * FROM "koalas" WHERE "name" iLIKE $1 OR "notes" iLIKE $1;`;
+
+    pool.query(queryText, [`%${search}%`]).then((results) =>{
+        res.send(results.rows);
+    }).catch((error) => {
+        alert('error filter by input field', error);
+    });
+});
+
 module.exports = koalaRouter;
