@@ -4,6 +4,8 @@ $( document ).ready( function(){
   console.log( 'JQ' );
   // Establish Click Listeners
   setupClickListeners();
+  $('#viewKoalas').on('click', '.isReadyButton', markAsReady);
+  $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
   // load existing koalas on page load
   getKoalas();
 
@@ -49,8 +51,44 @@ function getKoalas(){
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
-}
+} // end saveKoala
 
+function markAsReady () {
+  console.log('Marking Koala as ready for Transfer');
+  const id = $(this).data('id');
+  const status = $(this).data('status');
+
+  $.ajax({
+      method: 'PUT',
+      url: `/koalas/${id}`,
+      data: {
+          status: status
+      }
+  })
+  .then(function() {
+      getKoalas();
+  })
+  .catch(function(error) {
+      alert('Uh oh! Error!', error);
+  })
+
+} // end markAsReady
+
+function deleteKoala (){
+  const koalaId = $(this).data('id');
+  console.log('Deleting Koala', koalaId);
+
+  $.ajax({
+      method: 'DELETE',
+      url: `/koalas/${koalaId}`
+  })
+  .then(function() {
+      getKoalas();
+  })
+  .catch(function(error) {
+      alert(`Oh no! We couldn't delete this koala!, error: ${error}`);
+  });
+} // end deleteKoala
 
 // stretch goal- toggle
 // $("#isReadyBtn").click(function(){
