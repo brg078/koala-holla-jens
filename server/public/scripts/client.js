@@ -83,6 +83,8 @@ function markAsReady () {
       alert('Uh oh! Error!', error);
   })
 
+// if ready = true, toggleReady();
+
 } // end markAsReady
 
 
@@ -130,7 +132,7 @@ function renderTable (koalas) {
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>
-          <button type="button" class=".isReadyButton" data-id="${koala.id}">Mark Ready For Transport</button>
+          <button type="button" class=".isReadyButton" data-id="${koala.id}">Not Ready For Transport</button>
         </td>
         <td>
           <button type="button" class=".deleteButton" data-id="${koala.id}">Delete</button>
@@ -140,3 +142,6 @@ function renderTable (koalas) {
   };
 };
 
+function toggleReady() {
+  $('.isReadyButton').text("Ready for Transport");
+}
