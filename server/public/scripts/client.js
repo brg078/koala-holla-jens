@@ -1,4 +1,5 @@
 console.log( 'js' );
+const Swal = require('sweetalert2')
 
 $( document ).ready( function(){
   console.log( 'JQ' );
@@ -123,6 +124,8 @@ function deleteKoala (){
   const koalaId = $(this).data('id');
   console.log('Deleting Koala', koalaId);
 
+//add in sweetAlert, .ifConfirmed, then proceed
+
   $.ajax({
       method: 'DELETE',
       url: `/koalas/${koalaId}`
@@ -137,13 +140,12 @@ function deleteKoala (){
 
 // stretch goal- sweetAlert
 // Swal.fire({
-//   title: 'Do you want to remove this koala from the list?',
+//   title: 'Do you REALLY want to remove this koala from the list?',
 //   showDenyButton: true,
 //   showCancelButton: true,
 //   confirmButtonText: 'Save',
 //   denyButtonText: `Don't save`,
 // }).then((result) => {
-//   /* Read more about isConfirmed, isDenied below */
 //   if (result.isConfirmed) {
 //     Swal.fire('Saved!', '', 'success')
 //   } else if (result.isDenied) {
@@ -195,6 +197,7 @@ function renderTable (koalas) {
   };
 };
 
+// display toggle ready button on DOM
 function toggleReady() {
   $('.isReadyButton').text("Ready for Transport");
 }
