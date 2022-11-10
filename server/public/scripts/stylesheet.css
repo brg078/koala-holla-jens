@@ -1,12 +1,18 @@
 header {
     display: flex;
+    flex-direction: column;
+    padding: 20px;
     background-color: rgba(20, 195, 244, 0.639);
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#headerContainer {
+}
+
 .icon {
-    opacity: 0.5;
-    color: rgb(0, 128, 255);
+    height: 150px;
+    width: 150px;
+    opacity: 1;
 }
 
 /* section id = 'addKoala' */
