@@ -4,14 +4,16 @@ $( document ).ready( function(){
   console.log( 'JQ' );
   // Establish Click Listeners
   setupClickListeners();
-  $('#viewKoalas').on('click', '.isReadyButton', markAsReady);
-  $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
+  // $('#viewKoalas').on('click', '.isReadyButton', markAsReady);
+  // $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
   // load existing koalas on page load
   getKoalas();
 
 }); // end doc ready
 
 function setupClickListeners() {
+  $('#viewKoalas').on('click', '.isReadyButton', markAsReady);
+  $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
   $( '#addButton' ).on( 'click', function(){
     console.log( 'in addButton on click' );
     // get user input and put in an object
@@ -71,7 +73,7 @@ function markAsReady () {
 
   $.ajax({
       method: 'PUT',
-      url: `/koalas/${id}`,
+      url: `/koalas/readyfortransport/${id}`,
       data: {
           status: status
       }
@@ -92,7 +94,7 @@ function deleteKoala (){
 
   $.ajax({
       method: 'DELETE',
-      url: `/koalas/${koalaId}`
+      url: `/koalas/remove/${koalaId}`
   })
   .then(function() {
       getKoalas();
@@ -135,10 +137,10 @@ function renderTable (koalas) {
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>
-          <button type="button" class=".isReadyButton" data-id="${koala.id}">Mark Ready For Transport</button>
+          <button type="button" class="isReadyButton" data-id="${koala.id}">Mark Ready For Transport</button>
         </td>
         <td>
-          <button type="button" class=".deleteButton" data-id="${koala.id}">Delete</button>
+          <button type="button" class="deleteButton" data-id="${koala.id}">Delete</button>
         </td>
       </tr>
     `);

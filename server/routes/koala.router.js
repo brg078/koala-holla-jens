@@ -53,9 +53,9 @@ koalaRouter.post('/',  (req, res) => {
   });
 
 // PUT
-koalaRouter.put('/put/:id', (req, res) => {
+koalaRouter.put('/readyfortransport/:id', (req, res) => {
     let koalaId = req.params.id;
-    let queryText = `UPDATE "koalas" SET "ready_to_transfer" = 'TRUE' WHERE "id"=$1;`;
+    let queryText = `UPDATE "koalas" SET "ready_to_transfer" = TRUE WHERE "id"=$1;`;
 
     pool.query(queryText, [koalaId]).then (() => {
         res.sendStatus(200);
@@ -65,7 +65,7 @@ koalaRouter.put('/put/:id', (req, res) => {
 });
 
 // DELETE
-koalaRouter.delete('/koalas/:id', (req, res) => {
+koalaRouter.delete('/remove/:id', (req, res) => {
     let koalaId = req.params.id;
     let queryText = `DELETE FROM "koalas" WHERE "id"=$1;`;
 
