@@ -50,6 +50,11 @@ function getKoalas(){
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
+  
+  if (!checkInputs(newKoala)) { // if this function returns false,
+    alert('All inputs are required.'); // alert user
+    return false; // and fail input.
+  }
 
     $.ajax({
       type: 'POST',
@@ -63,6 +68,13 @@ function saveKoala( newKoala ){
         alert('Unable to add koala at this time. Please try again later.');
       });
 }  // end saveKoala
+
+function checkInputs(newKoala) {
+  let inputs = Object.values(newKoala); // array of all input values
+  if (inputs.some((e) => e == '')) { // if any value is empty,
+    return false; // fail the vibe check
+  } else { return true }
+}
 
 function markAsReady () {
   console.log('Marking Koala as ready for Transfer');
