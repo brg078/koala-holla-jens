@@ -19,10 +19,10 @@ function setupClickListeners() {
     // using a test object
     let koalaToSend = {
       name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      age: 20,
+      gender: 'M',
+      readyForTransfer: true,
+      notes: 'testName'
     };
     // call saveKoala with the new object
     saveKoala( koalaToSend );
@@ -60,7 +60,7 @@ function saveKoala( newKoala ){
         getKoalas();
       }).catch(function(error) {
         console.log('Error in POST', error)
-        alert('Unable to add book at this time. Please try again later.');
+        alert('Unable to add koala at this time. Please try again later.');
       });
 }  // end saveKoala
 

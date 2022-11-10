@@ -47,7 +47,7 @@ koalaRouter.post('/',  (req, res) => {
         res.sendStatus(201);
       })
       .catch(error => {
-        console.log(`Error adding new book`, error);
+        console.log(`Error adding new koala`, error);
         res.sendStatus(500);
       });
   });
