@@ -61,6 +61,7 @@ koalaRouter.put('/readyfortransport/:id', (req, res) => {
         res.sendStatus(200);
     }).catch((error) => {
         alert('error updating status to ready to move', error);
+        res.sendStatus(500)
     });
 });
 
@@ -73,6 +74,7 @@ koalaRouter.delete('/remove/:id', (req, res) => {
         res.sendStatus(200);
     }).catch((error) =>{
         alert('error deleting koala', error);
+        res.sendStatus(500)
     });
 });
 
@@ -86,6 +88,7 @@ koalaRouter.get('/:filter', (req, res) => {
         res.send(results.rows);
     }).catch((error) => {
         alert('error filter by input field', error);
+        res.sendStatus(500);
     });
 });
 
