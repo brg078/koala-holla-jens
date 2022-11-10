@@ -24,7 +24,7 @@ pool.on('error', (error) => {
 
 // GET
 koalaRouter.get('/', (req, res) => {
-  let queryText = `SELECT * FROM koalas`;
+  let queryText = `SELECT * FROM koalas ORDER BY "name"`;
 
   pool.query(queryText)
     .then( (response) => {
