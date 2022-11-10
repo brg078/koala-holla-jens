@@ -4,7 +4,7 @@ CREATE TABLE "koalas" (
 	"gender" VARCHAR (1) NOT NULL,
 	"age" VARCHAR (3),
     "ready_to_transfer" BOOLEAN DEFAULT FALSE,
-    "notes" VARCHAR (200),
+    "notes" VARCHAR (200)
 );
 
 INSERT INTO "koalas" 

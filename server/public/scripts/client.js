@@ -22,7 +22,7 @@ function setupClickListeners() {
       readyForTransfer: 'testName',
       notes: 'testName',
     };
-    // call saveKoala with the new obejct
+    // call saveKoala with the new object
     saveKoala( koalaToSend );
   }); 
 }
@@ -31,6 +31,19 @@ function getKoalas(){
   console.log( 'in getKoalas' );
   // ajax call to server to get koalas
   
+  $.ajax({
+    method: 'GET',
+    url: '/koalas'
+  })
+  .then(function (response) {
+    console.log('AJAX GET successful');
+    console.log(response.rows);
+    // renderTable(response);
+  })
+  .catch(function (error) {
+    console.log('error', error);
+  })
+
 } // end getKoalas
 
 function saveKoala( newKoala ){
