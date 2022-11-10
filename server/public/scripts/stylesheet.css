@@ -5,6 +5,7 @@ header {
 }
 
 .icon {
+    opacity: 0.5;
     color: rgb(0, 128, 255);
 }
 
@@ -17,6 +18,24 @@ header {
 #addButton {
     color: blue;
 }
+
+.table th {
+    width: 20%;
+    border: 2px solid black;
+    padding: 20px;
+    text-align: left;
+    background-color: rgb(168, 171, 169);
+}
+
+#tableData tr {
+    border: 5px solid black;
+    padding: 20px;
+    text-align: left;
+}
+
+#viewKoalas tr:nth-child(even){background-color: #f2f2f2;}
+
+#viewKoalas tr:hover {background-color: rgb(200, 199, 199);}
 
 #isReadyButton {
     color: green;
