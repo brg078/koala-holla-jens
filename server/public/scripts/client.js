@@ -4,6 +4,8 @@ $( document ).ready( function(){
   console.log( 'JQ' );
   // Establish Click Listeners
   setupClickListeners();
+  $('#viewKoalas').on('click', '.isReadyButton', markAsReady);
+  $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
   // load existing koalas on page load
   getKoalas();
 
@@ -48,6 +50,7 @@ function getKoalas(){
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
+
     $.ajax({
       type: 'POST',
       url: '/koalas',
@@ -59,9 +62,45 @@ function saveKoala( newKoala ){
         console.log('Error in POST', error)
         alert('Unable to add book at this time. Please try again later.');
       });
-}
-  // ajax call to server to get koalas
+}  // end saveKoala
 
+function markAsReady () {
+  console.log('Marking Koala as ready for Transfer');
+  const id = $(this).data('id');
+  const status = $(this).data('status');
+
+  $.ajax({
+      method: 'PUT',
+      url: `/koalas/${id}`,
+      data: {
+          status: status
+      }
+  })
+  .then(function() {
+      getKoalas();
+  })
+  .catch(function(error) {
+      alert('Uh oh! Error!', error);
+  })
+
+} // end markAsReady
+
+
+function deleteKoala (){
+  const koalaId = $(this).data('id');
+  console.log('Deleting Koala', koalaId);
+
+  $.ajax({
+      method: 'DELETE',
+      url: `/koalas/${koalaId}`
+  })
+  .then(function() {
+      getKoalas();
+  })
+  .catch(function(error) {
+      alert(`Oh no! We couldn't delete this koala!, error: ${error}`);
+  });
+} // end deleteKoala
 
 // stretch goal- toggle
 // $("#isReadyBtn").click(function(){
@@ -83,3 +122,26 @@ function saveKoala( newKoala ){
 //     Swal.fire('Changes are not saved', '', 'info')
 //   }
 // })
+
+function renderTable (koalas) {
+  $('#viewKoalas').empty();
+
+  for (koala of koalas) {
+    $('#viewKoalas').append(`
+      <tr>
+        <td>${koala.name}</td>
+        <td>${koala.gender}</td>
+        <td>${koala.age}</td>
+        <td>${koala.ready_to_transfer}</td>
+        <td>${koala.notes}</td>
+        <td>
+          <button type="button" class=".isReadyButton" data-id="${koala.id}>Mark Ready For Transport</button>
+        </td>
+        <td>
+          <button type="button" class=".deleteButton" data-id="${koala.id}>Delete</button>
+        </td>
+      </tr>
+    `);
+  };
+};
+
