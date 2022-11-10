@@ -153,9 +153,15 @@ function deleteKoala (){
 function getFilteredKoala() {
   const searchValue = $('#inputFilter').val();
 
+  // if blank input, refresh DOM and skip this function
+  if (searchValue == '') {
+    getKoalas();
+    return false;
+  };
+
   $.ajax({
     type: 'GET',
-    url: '/filter/' + searchValue
+    url: '/koalas/' + searchValue
   }).then(function (response) {
     console.log('get /filter/:search response', response);
     renderTable(response);

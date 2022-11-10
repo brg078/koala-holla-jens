@@ -78,7 +78,7 @@ koalaRouter.delete('/koalas/:id', (req, res) => {
 
 
 // FILTER by Name or Notes
-koalaRouter.put('/:filter', (req, res) => {
+koalaRouter.get('/:filter', (req, res) => {
     let search = req.params.filter;
     let queryText = `SELECT * FROM "koalas" WHERE "name" iLIKE $1 OR "notes" iLIKE $1;`;
 
