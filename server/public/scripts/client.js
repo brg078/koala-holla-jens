@@ -35,8 +35,19 @@ function getKoalas(){
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
-  // ajax call to server to get koalas
+    $.ajax({
+      type: 'POST',
+      url: '/koalas',
+      data: newKoala
+      }).then(function(response) {
+        console.log('Response from server.', response);
+        getKoalas();
+      }).catch(function(error) {
+        console.log('Error in POST', error)
+        alert('Unable to add book at this time. Please try again later.');
+      });
 }
+  // ajax call to server to get koalas
 
 
 // stretch goal- toggle
