@@ -37,3 +37,25 @@ function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
   // ajax call to server to get koalas
 }
+
+
+// stretch goal- toggle
+// $("#isReadyBtn").click(function(){
+//   $("p").toggle();
+// });
+
+// stretch goal- sweetAlert
+// Swal.fire({
+//   title: 'Do you want to remove this koala from the list?',
+//   showDenyButton: true,
+//   showCancelButton: true,
+//   confirmButtonText: 'Save',
+//   denyButtonText: `Don't save`,
+// }).then((result) => {
+//   /* Read more about isConfirmed, isDenied below */
+//   if (result.isConfirmed) {
+//     Swal.fire('Saved!', '', 'success')
+//   } else if (result.isDenied) {
+//     Swal.fire('Changes are not saved', '', 'info')
+//   }
+// })
