@@ -27,6 +27,9 @@ function setupClickListeners() {
     // call saveKoala with the new object
     saveKoala( koalaToSend );
   }); 
+
+  //click listener for filter field
+  $('#inputFilter').on('keyup', getFilteredKoala);
 }
 
 function getKoalas(){
@@ -47,6 +50,10 @@ function getKoalas(){
   })
 
 } // end getKoalas
+
+
+
+
 
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
@@ -122,6 +129,22 @@ function deleteKoala (){
 //     Swal.fire('Changes are not saved', '', 'info')
 //   }
 // })
+
+
+// below function does get API request on keyup from input filter field
+function getFilteredKoala() {
+  const searchValue = $('#inputFilter').val();
+
+  $.ajax({
+    type: 'GET',
+    url: '/filter/' + searchValue
+  }).then(function (response) {
+    console.log('get /filter/:search response', response);
+    renderTable(response);
+  }).catch(function (error) {
+    alert('error getting filtered data', error);
+  });
+};
 
 function renderTable (koalas) {
   $('#viewKoalas').empty();
