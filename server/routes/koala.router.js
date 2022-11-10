@@ -8,12 +8,12 @@ const koalaRouter = express.Router();
 
 
 // POST
-router.post('/',  (req, res) => {
+koalaRouter.post('/',  (req, res) => {
     let newKoala = req.body;
-    console.log(`Adding book`, newKoala);
+    console.log(`Adding koala`, newKoala);
   
-    let queryText = `INSERT INTO "books" ("author", "title")`;
-    pool.query(queryText, [newBook.author, newBook.title])
+    let queryText = `INSERT INTO "koalas" ("name", "gender", "age", "ready_to_transfer", "notes") VALUES ($1, $2, $3, $4, $5)`;
+    pool.query(queryText, [newKoala.name, newKoala.gender, newKoala.age, newKoala.readyForTransfer, newKoala.notes])
       .then(result => {
         res.sendStatus(201);
       })
