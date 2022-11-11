@@ -93,56 +93,87 @@ function checkInputs(newKoala) {
   else if (typeof newKoala.age != 'number' || newKoala.age < 0) { 
     alert('Age must be a positive number.');
     return false; // and fail the vibe check.
-
-  } else { return true } // passed the vibe check 😎
+  }
+  
+  else { return true } // passed the vibe check 😎
 }
 
-
-// toggle if Koala is ready for transfer
 function markAsReady () {
   console.log('Marking Koala as ready/not ready for Transfer');
   const id = $(this).data('id');
-  const readyStatus = $(this).data(`${koala.ready_to_transfer}`);
+  const readyStatus = $(this).data(`readyStatus`);
+  
+  // Swal.fire({
+  //   title: 'Confirm Transfer',
+  //   icon: 'warning',
+  //   showCancelButton: true,
+  //   confirmButtonText: 'Confirm Initiation of Koala Rapid Approach Protocol Transfer, Proper And Nice Treatment (KRAPT-PANT)',
+  //   cancelButtonText: 'I do not wish for KRAPT-PANT'
+  // })
+    // .then(function(result) {
+      // if (result.isConfirmed) {
+        // console.log('in is confirmed', result.isConfirmed)
+        $.ajax({
+          method: 'PUT',
+          url: `/koalas/readyfortransport/${id}`,
+          data: {
+            readyStatus: readyStatus
+          }
+        })
+        .then(function() {
+          getKoalas();
+        })
+        .catch(function(error) {
+          alert('Uh oh! Error!', error);
+        })
 
+        // if (readyStatus === true) {
+        //   toggleReady();
+        // }else if (readyStatus === false){
+        //   toggleNotReady();
+        // }
 
-  $.ajax({
-      method: 'PUT',
-      url: '/koalas/toggle/' + id,
-      data: {
-          readyStatus: readyStatus
-      }
-  })
-  .then(function() {
-      getKoalas();
-  })
-  .catch(function(error) {
-      alert('Uh oh! Error!', error);
-  })
+      // } else {
+        // console.log('in cancel transfer button')
+        // return false;
+      };
+    // });
+ 
+// } // end markAsReady
 
-  if (readyStatus === true) {
-      toggleReady();
-  } else if (readyStatus === false){
-      toggleNotReady();
-    }
-
-} // end markAsReady
 
 function deleteKoala (){
   const koalaId = $(this).data('id');
   console.log('Deleting Koala', koalaId);
 
 //add in sweetAlert, .ifConfirmed, then proceed
+  Swal.fire({
+   title: 'CONFIRM KOALA NO LONGER EXISTS',
+   icon: 'warning',
+   showCancelButton: true,
+   confirmButtonText: 'Correct, this koala no longer exists =(',
+   cancelButtonText: 'Koala still exists and is accounted for! Cancel!'
 
-  $.ajax({
-      method: 'DELETE',
-      url: `/koalas/remove/${koalaId}`
   })
-  .then(function() {
-      getKoalas();
-  })
-  .catch(function(error) {
-      alert(`Oh no! We couldn't delete this koala!, error: ${error}`);
-  });
+   
+  .then(function(result) {
+      if (result.isConfirmed) {
+        console.log('in is confirmed', result.isConfirmed)
+        $.ajax({
+          method: 'DELETE',
+          url: `/koalas/remove/${koalaId}`
+        })
+        .then(function() {
+          getKoalas();
+        })
+        .catch(function(error) {
+          alert(`Oh no! We couldn't delete this koala!, error: ${error}`);
+        });
+      } else {
+        console.log('in cancel delete button')
+        return false;
+      };
+  });  
 } // end deleteKoala
 
 // stretch goal- sweetAlert
@@ -175,6 +206,7 @@ function getFilteredKoala() {
     type: 'GET',
     url: '/koalas/' + searchValue
   }).then(function (response) {
+
     // console.log('get /filter/:search response', response);
     renderTable(response);
   }).catch(function (error) {
@@ -183,6 +215,7 @@ function getFilteredKoala() {
 };
 
 // show koala table on the DOM
+
 function renderTable (koalas) {
   $('#viewKoalas').empty();
 
