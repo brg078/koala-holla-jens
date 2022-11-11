@@ -117,12 +117,11 @@ function markAsReady () {
 
     if (readyStatus === true) {
       toggleReady();
+    }
     else if (readyStatus === false){
       toggleNotReady();
     }
-
-  }
-} // end markAsReady
+  } // end markAsReady
 
 
 function deleteKoala (){
