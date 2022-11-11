@@ -108,7 +108,7 @@ function markAsReady () {
       method: 'PUT',
       url: '/koalas/' + id,
       data: {
-          readyStatus: readyStatus
+          ready_to_transfer: readyStatus
       }
   })
   .then(function() {
@@ -211,7 +211,7 @@ function renderTable (koalas) {
   $('#viewKoalas').empty();
 
   const buttonStatus = {
-    true: 'Not Ready for Transport',
+    true: 'Ready for Transport',
     false: 'Not Ready for Transport'
   }
 

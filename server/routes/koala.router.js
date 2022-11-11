@@ -57,7 +57,9 @@ koalaRouter.put('/:id', (req, res) => {
     let koalaId = req.params.id;
 
     let isReady = req.body.ready_to_transfer
-    let param = (isReady === 'true' ? 'false' : 'true')
+    let param = (isReady == 'true' ? 'false' : 'true')
+    console.log('isReady is:', isReady);
+    console.log('setting koala to', param);
 
     let queryText = `
     UPDATE "koalas" 
