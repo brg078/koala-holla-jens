@@ -115,8 +115,12 @@ function markAsReady () {
       alert('Uh oh! Error!', error);
   })
 
-  if (readyStatus === true) {
-    toggleReady();
+    if (readyStatus === true) {
+      toggleReady();
+    else if (readyStatus === false){
+      toggleNotReady();
+    }
+
   }
 } // end markAsReady
 
@@ -201,4 +205,8 @@ function renderTable (koalas) {
 // display toggle ready button on DOM
 function toggleReady() {
   $('.isReadyButton').text("Ready for Transport");
+}
+
+function toggleNotReady() {
+  $('.isReadyButton').text("Not Ready for Transport");
 }
