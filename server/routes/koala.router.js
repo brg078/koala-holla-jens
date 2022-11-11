@@ -24,7 +24,7 @@ pool.on('error', (error) => {
 
 // GET
 koalaRouter.get('/', (req, res) => {
-  let queryText = `SELECT * FROM koalas`;
+  let queryText = `SELECT * FROM koalas ORDER BY "name"`;
 
   pool.query(queryText)
     .then( (response) => {
@@ -55,12 +55,22 @@ koalaRouter.post('/',  (req, res) => {
 // PUT
 koalaRouter.put('/readyfortransport/:id', (req, res) => {
     let koalaId = req.params.id;
-    let queryText = `UPDATE "koalas" SET "ready_to_transfer" = TRUE WHERE "id"=$1;`;
 
-    pool.query(queryText, [koalaId]).then (() => {
+    let isReady = req.body.ready_to_transfer
+    let param = (isReady === 'true' ? 'false' : 'true')
+
+    let queryText = `
+    UPDATE "koalas" 
+    SET "ready_to_transfer" = $1 
+    WHERE "id" = $2;
+    `;
+
+
+    pool.query(queryText, [param, koalaId]).then (() => {
         res.sendStatus(200);
     }).catch((error) => {
         alert('error updating status to ready to move', error);
+        res.sendStatus(500)
     });
 });
 
@@ -73,6 +83,21 @@ koalaRouter.delete('/remove/:id', (req, res) => {
         res.sendStatus(200);
     }).catch((error) =>{
         alert('error deleting koala', error);
+        res.sendStatus(500)
+    });
+});
+
+
+// FILTER by Name or Notes
+koalaRouter.get('/:filter', (req, res) => {
+    let search = req.params.filter;
+    let queryText = `SELECT * FROM "koalas" WHERE "name" iLIKE $1 OR "notes" iLIKE $1;`;
+
+    pool.query(queryText, [`%${search}%`]).then((results) =>{
+        res.send(results.rows);
+    }).catch((error) => {
+        alert('error filter by input field', error);
+        res.sendStatus(500);
     });
 });
 
