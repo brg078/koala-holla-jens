@@ -61,12 +61,12 @@ koalaRouter.put('/readyfortransport/:id', (req, res) => {
 
     let queryText = `
     UPDATE "koalas" 
-    SET "ready_to_transfer" = 'TRUE' 
-    WHERE "id"=$1;
+    SET "ready_to_transfer" = $1 
+    WHERE "id" = $2;
     `;
 
 
-    pool.query(queryText, [koalaId]).then (() => {
+    pool.query(queryText, [param, id]).then (() => {
         res.sendStatus(200);
     }).catch((error) => {
         alert('error updating status to ready to move', error);
