@@ -45,8 +45,8 @@ function getKoalas(){
     url: '/koalas'
   })
   .then(function (response) {
-    console.log('AJAX GET successful');
-    console.log(response.rows);
+    // console.log('AJAX GET successful');
+    // console.log(response.rows);
     renderTable(response.rows);
   })
   .catch(function (error) {
@@ -175,7 +175,7 @@ function getFilteredKoala() {
     type: 'GET',
     url: '/koalas/' + searchValue
   }).then(function (response) {
-    console.log('get /filter/:search response', response);
+    // console.log('get /filter/:search response', response);
     renderTable(response);
   }).catch(function (error) {
     alert('error getting filtered data', error);
