@@ -196,7 +196,7 @@ function renderTable (koalas) {
         <td>
           <button type="button" class="isReadyButton" data-id="${koala.id}">Mark Ready For Transport</button>
         </td>
-        <td>
+        <td class="deleteButtonTd">
           <button type="button" class="deleteButton" data-id="${koala.id}">Delete</button>
         </td>
       </tr>
