@@ -70,6 +70,14 @@ function markAsReady () {
   console.log('Marking Koala as ready for Transfer');
   const id = $(this).data('id');
   const status = $(this).data('status');
+  Swal.fire({
+    title: 'Confirm Transfer',
+    icon: 'warning',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Confirm Initiation of Koala Rapid Approach Protocol Transfer, Proper And Nice Treatment (KRAPT-PANT)',
+    denyButtonText: 'I do not wish for KRAPT-PANT'
+  })
 
   $.ajax({
       method: 'PUT',
