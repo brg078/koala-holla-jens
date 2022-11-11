@@ -95,7 +95,7 @@ function checkInputs(newKoala) {
 function markAsReady () {
   console.log('Marking Koala as ready/not ready for Transfer');
   const id = $(this).data('id');
-  const readyStatus = $(this).data('readyStatus');
+  const readyStatus = $(this).data(`readyStatus`);
 
   $.ajax({
       method: 'PUT',
@@ -113,11 +113,12 @@ function markAsReady () {
 
     if (readyStatus === true) {
       toggleReady();
-    }
     else if (readyStatus === false){
       toggleNotReady();
     }
-  } // end markAsReady
+
+  }
+} // end markAsReady
 
 
 function deleteKoala (){
