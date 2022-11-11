@@ -67,6 +67,11 @@ function saveKoala( newKoala ){
       data: newKoala
       }).then(function(response) {
         console.log('Response from server.', response);
+        $('#nameIn').val('');
+        $('#ageIn').val('');
+        $('#genderIn').val('');
+        $('#readyForTransferIn').val('');
+        $('#notesIn').val('');
         getKoalas();
       }).catch(function(error) {
         console.log('Error in POST', error)
@@ -88,16 +93,17 @@ function checkInputs(newKoala) {
   else if (typeof newKoala.age != 'number' || newKoala.age < 0) { 
     alert('Age must be a positive number.');
     return false; // and fail the vibe check.
-  }
-  
-  else { return true } // passed the vibe check 😎
-} // end checkInputs
+
+  } else { return true } // passed the vibe check 😎
+}
+
 
 // toggle if Koala is ready for transfer
 function markAsReady () {
   console.log('Marking Koala as ready/not ready for Transfer');
   const id = $(this).data('id');
-  const readyStatus = $(this).data(`readyStatus`);
+  const readyStatus = $(this).data(`${koala.ready_to_transfer}`);
+
 
   $.ajax({
       method: 'PUT',
@@ -113,13 +119,13 @@ function markAsReady () {
       alert('Uh oh! Error!', error);
   })
 
-    if (readyStatus === true) {
+  if (readyStatus === true) {
       toggleReady();
-    }
-    else if (readyStatus === false){
+  } else if (readyStatus === false){
       toggleNotReady();
     }
-  } // end markAsReady
+
+} // end markAsReady
 
 function deleteKoala (){
   const koalaId = $(this).data('id');
@@ -201,7 +207,7 @@ function renderTable (koalas) {
         <td>
           <button type="button" class="isReadyButton" data-id="${koala.id}">${buttonStatus[koala.ready_to_transfer]}</button>
         </td>
-        <td>
+        <td class="deleteButtonTd">
           <button type="button" class="deleteButton" data-id="${koala.id}">Delete</button>
         </td>
       </tr>
