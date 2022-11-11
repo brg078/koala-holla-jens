@@ -2,10 +2,10 @@ console.log( 'js' );
 
 $( document ).ready( function(){
   console.log( 'JQ' );
+
   // Establish Click Listeners
   setupClickListeners();
-  // $('#viewKoalas').on('click', '.isReadyButton', markAsReady);
-  // $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
+
   // load existing koalas on page load
   getKoalas();
 
@@ -16,6 +16,7 @@ function setupClickListeners() {
   $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
   $( '#addButton' ).on( 'click', function(){
     console.log( 'in addButton on click' );
+
     // get user input and put in an object
     // NOT WORKING YET :(
     // using a test object
@@ -26,6 +27,7 @@ function setupClickListeners() {
       readyForTransfer: $( '#readyForTransferIn' ).val(),
       notes: $( '#notesIn' ).val()
     };
+
     // call saveKoala with the new object
     saveKoala( koalaToSend );
   }); 
@@ -36,21 +38,20 @@ function setupClickListeners() {
 
 function getKoalas(){
   console.log( 'in getKoalas' );
+
   // ajax call to server to get koalas
-  
   $.ajax({
     method: 'GET',
     url: '/koalas'
   })
   .then(function (response) {
-    console.log('AJAX GET successful');
-    console.log(response.rows);
+    // console.log('AJAX GET successful');
+    // console.log(response.rows);
     renderTable(response.rows);
   })
   .catch(function (error) {
     console.log('error', error);
   })
-
 } // end getKoalas
 
 function saveKoala( newKoala ){
@@ -66,6 +67,11 @@ function saveKoala( newKoala ){
       data: newKoala
       }).then(function(response) {
         console.log('Response from server.', response);
+        $('#nameIn').val('');
+        $('#ageIn').val('');
+        $('#genderIn').val('');
+        $('#readyForTransferIn').val('');
+        $('#notesIn').val('');
         getKoalas();
       }).catch(function(error) {
         console.log('Error in POST', error)
@@ -135,6 +141,7 @@ function markAsReady () {
  
 // } // end markAsReady
 
+
 function deleteKoala (){
   const koalaId = $(this).data('id');
   console.log('Deleting Koala', koalaId);
@@ -146,6 +153,7 @@ function deleteKoala (){
    showCancelButton: true,
    confirmButtonText: 'Correct, this koala no longer exists =(',
    cancelButtonText: 'Koala still exists and is accounted for! Cancel!'
+
   })
    
   .then(function(result) {
@@ -198,15 +206,28 @@ function getFilteredKoala() {
     type: 'GET',
     url: '/koalas/' + searchValue
   }).then(function (response) {
-    console.log('get /filter/:search response', response);
+
+    // console.log('get /filter/:search response', response);
     renderTable(response);
   }).catch(function (error) {
     alert('error getting filtered data', error);
   });
 };
 
+// show koala table on the DOM
+
 function renderTable (koalas) {
   $('#viewKoalas').empty();
+
+  const status= {
+    true: 'Ready for Transport',
+    false: 'Not Ready for Transport'
+  }
+
+  const buttonStatus = {
+    true: 'Not Ready for Transport',
+    false: 'Not Ready for Transport'
+  }
 
   for (let koala of koalas) {
     $('#viewKoalas').append(`
@@ -217,21 +238,21 @@ function renderTable (koalas) {
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>
-          <button type="button" class="isReadyButton" data-id="${koala.id}">Mark Ready For Transport</button>
+          <button type="button" class="isReadyButton" data-id="${koala.id}">${buttonStatus[koala.ready_to_transfer]}</button>
         </td>
-        <td>
+        <td class="deleteButtonTd">
           <button type="button" class="deleteButton" data-id="${koala.id}">Delete</button>
         </td>
       </tr>
     `);
   };
-};
+} // end renderTable
 
 // display toggle ready button on DOM
 function toggleReady() {
   $('.isReadyButton').text("Ready for Transport");
-}
+} // end toggleReady
 
 function toggleNotReady() {
   $('.isReadyButton').text("Not Ready for Transport");
-}
+} // end toggleNotReady

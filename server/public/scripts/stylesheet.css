@@ -1,10 +1,12 @@
 header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     text-align: justify;
     padding: 20px;
     background-color: rgba(20, 195, 244, 0.639);
+    border: 2px solid rgb(73, 169, 233);
     font-family: Arial, Helvetica, sans-serif;
+    border-radius: 20px;
 }
 
 body {
@@ -16,19 +18,53 @@ h2 {
     text-align: center !important;
 }
 
+button {
+    border-radius: 3px;
+}
+
 .icon {
     float: left;
     height: 150px;
     width: 150px;
 }
+.deleteButton {
+    background-color: rgb(255, 109, 109);
+}
+.deleteButtonTd {
+    display: flex;
+    justify-content: center;
+}
+
 
 /* section id = 'addKoala' */
 #addKoala {
+    border: 2px solid rgb(214, 214, 104);
+    border-radius: 20px;
     background-color: ivory;
 }
 
+#addKoalaInputDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    column-gap: 5px;
+    margin-bottom: 10px;
+}
+
 #addButton {
-    color: blue;
+    background-color: rgb(133, 232, 133);
+    height: 35px;
+    width: 100px;
+}
+#filterDiv {
+    background-color: rgb(225, 213, 196);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+    border: 2px solid rgb(126, 93, 31);
+    border-radius: 20px;
 }
 
 #koalaDataTable th {
