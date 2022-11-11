@@ -101,7 +101,7 @@ function markAsReady () {
 
   $.ajax({
       method: 'PUT',
-      url: `/koalas/toggle/' + id,
+      url: '/koalas/toggle/' + id,
       data: {
           readyStatus: readyStatus
       }
