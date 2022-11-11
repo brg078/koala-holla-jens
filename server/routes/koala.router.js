@@ -53,7 +53,7 @@ koalaRouter.post('/',  (req, res) => {
   });
 
 // PUT
-koalaRouter.put('/readyfortransport/:id', (req, res) => {
+koalaRouter.put('/:id', (req, res) => {
     let koalaId = req.params.id;
 
     let isReady = req.body.ready_to_transfer

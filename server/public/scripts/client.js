@@ -102,12 +102,13 @@ function checkInputs(newKoala) {
 function markAsReady () {
   console.log('Marking Koala as ready/not ready for Transfer');
   const id = $(this).data('id');
-  const readyStatus = $(this).data(`${koala.ready_to_transfer}`);
+  const readyStatus = $(this).data('ready_to_transfer');
 
+  console.log('markAsReady readyStatus:', readyStatus)
 
   $.ajax({
       method: 'PUT',
-      url: '/koalas/toggle/' + id,
+      url: '/koalas/' + id,
       data: {
           readyStatus: readyStatus
       }
@@ -186,11 +187,6 @@ function getFilteredKoala() {
 function renderTable (koalas) {
   $('#viewKoalas').empty();
 
-  const status= {
-    true: 'Ready for Transport',
-    false: 'Not Ready for Transport'
-  }
-
   const buttonStatus = {
     true: 'Not Ready for Transport',
     false: 'Not Ready for Transport'
@@ -205,7 +201,7 @@ function renderTable (koalas) {
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
         <td>
-          <button type="button" class="isReadyButton" data-id="${koala.id}">${buttonStatus[koala.ready_to_transfer]}</button>
+          <button type="button" class="isReadyButton" data-id="${koala.id}" data-ready_to_transfer="${koala.ready_to_transfer}">${buttonStatus[koala.ready_to_transfer]}</button>
         </td>
         <td class="deleteButtonTd">
           <button type="button" class="deleteButton" data-id="${koala.id}">Delete</button>
