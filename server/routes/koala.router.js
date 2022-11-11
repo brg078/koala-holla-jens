@@ -24,7 +24,7 @@ pool.on('error', (error) => {
 
 // GET
 koalaRouter.get('/', (req, res) => {
-  let queryText = `SELECT * FROM koalas`;
+  let queryText = `SELECT * FROM koalas ORDER BY "name"`;
 
   pool.query(queryText)
     .then( (response) => {
@@ -53,8 +53,9 @@ koalaRouter.post('/',  (req, res) => {
   });
 
 // PUT
-koalaRouter.put('/put/:id', (req, res) => {
+koalaRouter.put('/readyfortransport/:id', (req, res) => {
     let koalaId = req.params.id;
+
     let isReady = req.body.ready_to_transfer
     let param = (isReady === 'true' ? 'false' : 'true')
 
@@ -64,15 +65,17 @@ koalaRouter.put('/put/:id', (req, res) => {
     WHERE "id"=$1;
     `;
 
+
     pool.query(queryText, [koalaId]).then (() => {
         res.sendStatus(200);
     }).catch((error) => {
         alert('error updating status to ready to move', error);
+        res.sendStatus(500)
     });
 });
 
 // DELETE
-koalaRouter.delete('/koalas/:id', (req, res) => {
+koalaRouter.delete('/remove/:id', (req, res) => {
     let koalaId = req.params.id;
     let queryText = `DELETE FROM "koalas" WHERE "id"=$1;`;
 
@@ -80,6 +83,7 @@ koalaRouter.delete('/koalas/:id', (req, res) => {
         res.sendStatus(200);
     }).catch((error) =>{
         alert('error deleting koala', error);
+        res.sendStatus(500)
     });
 });
 
@@ -93,6 +97,7 @@ koalaRouter.get('/:filter', (req, res) => {
         res.send(results.rows);
     }).catch((error) => {
         alert('error filter by input field', error);
+        res.sendStatus(500);
     });
 });
 
