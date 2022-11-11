@@ -65,8 +65,8 @@ koalaRouter.put('/:id', (req, res) => {
     WHERE "id" = $2;
     `;
 
+    pool.query(queryText, [param, koalaId]).then (() => {
 
-    pool.query(queryText, [param, id]).then (() => {
         res.sendStatus(200);
     }).catch((error) => {
         alert('error updating status to ready to move', error);
@@ -91,8 +91,8 @@ koalaRouter.delete('/remove/:id', (req, res) => {
 // FILTER by Name or Notes
 koalaRouter.get('/:filter', (req, res) => {
     let search = req.params.filter;
-    let queryText = `SELECT * FROM "koalas" WHERE "name" iLIKE $1 OR "notes" iLIKE $1;`;
-
+    let queryText = `SELECT * FROM "koalas" WHERE "name" iLIKE $1 OR "notes" iLIKE $1 ORDER BY name;`;
+    
     pool.query(queryText, [`%${search}%`]).then((results) =>{
         res.send(results.rows);
     }).catch((error) => {
